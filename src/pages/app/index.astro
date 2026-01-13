@@ -1,0 +1,299 @@
+---
+import BaseLayout from '@layouts/Base.astro';
+---
+
+<BaseLayout title="Addy AI Dashboard" description="AI Loan Officer Assistant dashboard.">
+  <main class="app">
+    <header class="app-header">
+      <div>
+        <h1>Addy AI Dashboard</h1>
+        <p>Welcome back, Taylor. Your pipeline is ready for AI processing.</p>
+      </div>
+      <div class="header-actions">
+        <button class="ghost">Invite team</button>
+        <a class="primary" href="/account">Manage billing</a>
+      </div>
+    </header>
+
+    <section class="app-grid">
+      <div class="panel chat">
+        <div class="panel-header">
+          <h2>AI Loan Officer Assistant</h2>
+          <span class="status">Online</span>
+        </div>
+        <div class="chat-body">
+          <div class="message assistant">
+            <strong>Addy AI</strong>
+            <p>I reviewed the Morales file. Two items remain: updated pay stub and LOE for large deposit.</p>
+          </div>
+          <div class="message user">
+            <strong>You</strong>
+            <p>Summarize DTI and suggest next borrower follow-up.</p>
+          </div>
+          <div class="message assistant">
+            <strong>Addy AI</strong>
+            <p>DTI is 38% (target &lt; 43%). Recommend sending an upload link with a reminder for the updated pay stub.</p>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Ask Addy AI to analyze a loan file..." aria-label="Chat input" />
+          <button class="primary">Send</button>
+        </div>
+      </div>
+
+      <div class="panel tasks">
+        <h2>Task selector</h2>
+        <div class="task-list">
+          <button>Request missing docs</button>
+          <button>Analyze DTI</button>
+          <button>Summarize borrower file</button>
+          <button>Follow up on conditions</button>
+        </div>
+        <div class="task-summary">
+          <h3>Next best action</h3>
+          <p>Send automated reminder for “Updated pay stub (July)” with secure upload link.</p>
+          <button class="primary">Send reminder</button>
+        </div>
+      </div>
+
+      <div class="panel uploads">
+        <h2>Document uploads</h2>
+        <div class="upload-box">
+          <p>Drag &amp; drop PDFs or</p>
+          <button class="ghost">Browse files</button>
+          <span>Supported: W2, 1040, pay stubs, bank statements</span>
+        </div>
+        <div class="upload-list">
+          <div class="upload-item">
+            <strong>Bank Statement - June.pdf</strong>
+            <span>Uploaded • Extracted</span>
+          </div>
+          <div class="upload-item">
+            <strong>Pay Stub - July.pdf</strong>
+            <span>Missing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel results">
+        <h2>Document AI results</h2>
+        <div class="results-grid">
+          <div>
+            <span>Borrower income</span>
+            <strong>$8,950 / month</strong>
+          </div>
+          <div>
+            <span>Debt obligations</span>
+            <strong>$3,400 / month</strong>
+          </div>
+          <div>
+            <span>DTI</span>
+            <strong>38%</strong>
+          </div>
+          <div>
+            <span>Checklist</span>
+            <strong>7 / 9 complete</strong>
+          </div>
+        </div>
+        <div class="checklist">
+          <div class="check complete">W2 verified</div>
+          <div class="check complete">Tax return summary</div>
+          <div class="check">Updated pay stub needed</div>
+          <div class="check">Letter of explanation pending</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  @import '@styles/global.scss';
+
+  .app {
+    padding: 2.5rem clamp(1.5rem, 4vw, 4rem) 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: var(--background);
+    min-height: 100vh;
+  }
+
+  .app-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .app-header p {
+    color: var(--text-color-secondary);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .primary,
+  .ghost {
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .primary {
+    background: var(--primary);
+    color: white;
+  }
+
+  .ghost {
+    border: 1px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+  }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--primary-transparent);
+    color: var(--primary);
+  }
+
+  .chat-body {
+    display: grid;
+    gap: 0.75rem;
+    max-height: 280px;
+    overflow: auto;
+  }
+
+  .message {
+    background: var(--background-darker);
+    border-radius: 16px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .message.user {
+    background: rgba(27, 79, 255, 0.1);
+  }
+
+  .chat-input {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    border: 1px solid #d8def0;
+    background: #f8faff;
+  }
+
+  .task-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .task-list button {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #d8def0;
+    background: #f8faff;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .task-summary {
+    background: var(--background-darker);
+    border-radius: 16px;
+    padding: 1rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .upload-box {
+    border: 1px dashed #c7d2fe;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .upload-box span {
+    color: var(--text-color-secondary);
+    font-size: 0.85rem;
+  }
+
+  .upload-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .upload-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .results-grid strong {
+    font-size: 1.1rem;
+  }
+
+  .checklist {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .check {
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    background: var(--background-darker);
+    font-size: 0.85rem;
+  }
+
+  .check.complete {
+    background: rgba(34, 197, 94, 0.15);
+    color: #15803d;
+  }
+</style>
